@@ -6,6 +6,7 @@ import OfferSlider from '../components/OfferSlider'
 import { AntDesign } from '@expo/vector-icons'
 import { colors, veg, nonveg } from '../global/styles'
 import CardSlider from '../components/CardSlider'
+import ButtonNav from '../components/ButtonNav'
 
 import { firebase } from '../../Firebase/firebaseConfig'
 
@@ -35,9 +36,15 @@ const HomeScreen = ({navigation}) => {
   //console.log(search)
 
   return (
-    <ScrollView style = {styles.container}>
+    <View style = {styles.container}>
       <StatusBar />
       <HomeHeadNav navigation = {navigation}/>
+      
+      <View style = {styles.bottomnav}>
+          <ButtonNav navigation = {navigation}/>
+      </View>
+
+      <ScrollView>
       <View style = {styles.searchbox}>
           <AntDesign name="search1" size={24} color="black" style = {styles.searchicon}/>
           <TextInput placeholder = 'search' onChangeText={(text) => {setSearch(text)}} />
@@ -67,7 +74,9 @@ const HomeScreen = ({navigation}) => {
       <CardSlider title = {"Today's Special"} data = {foodData} navigation = {navigation} />
       <CardSlider title = {"NonVeg"} data = {NonVegData} navigation = {navigation}/>
       <CardSlider title = {"Veg Grind"} data = {VegData} navigation = {navigation}/>
-    </ScrollView>
+      </ScrollView>
+
+    </View>
   )
 }
 
@@ -115,11 +124,24 @@ const styles = StyleSheet.create({
     color: colors.text1,
 },
 
-searchresult: {
-  width: '100%',
-  flexDirection: 'row',
-  // alignItems: 'center',
-  padding: 5,
-},
+  searchresult: {
+    width: '100%',
+    flexDirection: 'row',
+    // alignItems: 'center',
+    padding: 5,
+  },
+
+  searchresulttext: {
+    marginLeft: 10,
+    fontSize: 10,
+    color: colors.text1,
+  },
+  bottomnav: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%',
+      backgroundColor: colors.col1,
+      zIndex: 20,
+  }
 })
 export default HomeScreen

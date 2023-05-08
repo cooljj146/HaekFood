@@ -341,6 +341,7 @@ const styles = StyleSheet.create({
         color: 'green',
         fontSize: 25,
         textAlign: 'center',
-    }
+    },
+    
     
 })
