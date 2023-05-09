@@ -9,6 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserProfile from './src/screens/UserProfile';
 import ProductPage from './src/screens/ProductPage';
 import UserCart from './src/screens/UserCart';
+import PlaceOrder from './src/screens/PlaceOrder';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -48,6 +49,12 @@ export default function App() {
           />
 
           <Stack.Screen name='cart' component={UserCart}
+              options = {{
+                headerShown: false
+              }}
+          />
+
+          <Stack.Screen name='placeorder' component={PlaceOrder}
               options = {{
                 headerShown: false
               }}

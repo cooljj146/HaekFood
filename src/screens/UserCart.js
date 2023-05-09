@@ -30,23 +30,50 @@ const UserCart = ({navigation}) => {
 
   useEffect (() => { 
       getCartData();
-  },[]);
+  },[])
 
-  useEffect(() => {
+//   useEffect(() => {
+//     console.log("cartData inside second useEffect: ", cartData);
+//     if (cartData != null) {
+//         const foodprice = JSON.parse(cartData).cart;
+//         let totalfoodprice = 0;
+//         foodprice.map((item) => {
+//             // console.log(item.data.foodPrice)
+//             totalfoodprice = (parseInt(item.data.foodPrice) * parseInt(item.Foodquantity)) + 
+//             (parseInt(item.data.foodAddonPrice) * parseInt(item.AaddOnQuantity)) + totalfoodprice;
+
+//         })
+        
+//         setTotalCost(JSON.stringify(totalfoodprice))
+//     } 
+// }, [cartData])
+
+useEffect(() => {
     if (cartData != null) {
-        const foodprice = JSON.parse(cartData).cart;
+      const parsedCartData = JSON.parse(cartData);
+      const foodprice = parsedCartData.cart;
+      if (foodprice) {
         let totalfoodprice = 0;
         foodprice.map((item) => {
-            // console.log(item.data.foodPrice)
-            totalfoodprice = (parseInt(item.data.foodPrice) * parseInt(item.Foodquantity)) +
-                (parseInt(item.data.foodAddonPrice) * parseInt(item.Addonquantity)) + totalfoodprice;
-        })
-        // console.log(totalfoodprice)
-        setTotalCost(JSON.stringify(totalfoodprice))
+          totalfoodprice =
+            parseInt(item.data.foodPrice) * parseInt(item.Foodquantity) +
+            parseInt(item.data.foodAddonPrice) * parseInt(item.addOnQuantity) +
+            totalfoodprice;
+        });
+        setTotalCost(JSON.stringify(totalfoodprice));
+      } else {
+        setTotalCost("0");
+      }
     }
-}, [cartData])
+  }, [cartData]);
+  
+  
 
- // console.log(cartData);
+console.log(totalCost);
+
+
+
+
 
  const deleteItem = (item) => {
   const docRef = firebase.firestore().collection("UserCart").doc(firebase.auth().currentUser.uid);
@@ -89,9 +116,9 @@ const UserCart = ({navigation}) => {
                                         <Text style = {styles.txt1}>{item.Foodquantity}&nbsp;
                                         {item.data.foodName} / each</Text>
                                       </View>
-                                      {item.Addonquantity > 0 &&
+                                      {item.addOnQuantity > 0 &&
                                           <View style ={styles.c2}>
-                                              <Text style = {styles.txt3}>{item.Addonquantity}
+                                              <Text style = {styles.txt3}>{item.addOnQuantity}
                                               &nbsp; {item.data.foodAddon}
                                               </Text>
                                               <Text style = {styles.txt3}>{item.data.foodAddonPrice}
@@ -114,10 +141,12 @@ const UserCart = ({navigation}) => {
            <View style = {styles.btncont}>
                <View style = {styles.c3}>
                   <Text style = {styles.txt5}>Total</Text>
-                  <Text style = {styles.txt5}>${totalCost}</Text>
+                  <Text style = {styles.txt6}>${totalCost}</Text>
                </View>
               <TouchableOpacity style = {btn2}>
-                  <Text style = {styles.btntxt}>Place Order</Text>
+                  <Text style = {styles.btntxt} 
+                  onPress = {() => navigation.navigate('placeorder', {cartData})}>
+                  Place Order</Text>
               </TouchableOpacity>
            </View>
       </View>

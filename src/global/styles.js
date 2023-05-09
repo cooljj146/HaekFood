@@ -9,6 +9,17 @@ module.exports = {
     title1: 30,
     title2: 20
   },
+  btn1: {
+    width: '80%',
+    height: 50,
+    backgroundColor: 'red',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 10,
+    color: 'white',
+    marginBottom: 10,
+  },
   btn2: {
     width: 150,
     height: 50,
